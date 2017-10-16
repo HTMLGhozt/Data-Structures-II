@@ -41,7 +41,7 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-    const newNode = new GraphNode({ value, edges: [] });
+    const newNode = new GraphNode({ value, edges: []});
     this.vertices.push(newNode);
     if (this.vertices.length === 2) {
       this.addEdge(this.vertices[0], this.vertices[1]);
@@ -95,12 +95,12 @@ class Graph {
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-    if (!(this.checkIfEdgeExists(fromVertex, toVertex))) return;
-
-    fromVertex.edges = fromVertex.edges.filter(v => v.value !== toVertex.value);
-    toVertex.edges = fromVertex.edges.filter(v => v.value !== fromVertex.value);
-    if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
-    if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromVertex.edges = fromVertex.edges.filter(v => v.value !== toVertex.value);
+      toVertex.edges = fromVertex.edges.filter(v => v.value !== fromVertex.value);
+      if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+      if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    }
   }
 }
 
